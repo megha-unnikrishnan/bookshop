@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-bozls@#if=li*3!7k3y6nk1y-e-je^l_6_s5pn27b*)x+25x&9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['www.estoreshop.ltd']
+ALLOWED_HOSTS = ['13.49.108.220','*']
 
 # Application definition
 
