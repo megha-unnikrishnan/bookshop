@@ -1359,9 +1359,9 @@ def admin_edit_coupon(request, id):
             coupon_stock = request.POST.get("coupon_stock")
 
             # Check if the edited coupon code is unique
-            if Coupons.objects.exclude(id=id).filter(coupon_code=coupon_code).exists():
-                messages.error(request, 'Coupon code already exists.')
-                return redirect('couponedit', id=id)
+            if Coupons.objects.filter(coupon_code=coupon_code).exists():
+                messages.error(request, "This coupon is already in your account!")
+                return redirect("coupon")
 
             # Update the coupon
             Coupons.objects.filter(id=id).update(
