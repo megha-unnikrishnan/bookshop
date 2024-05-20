@@ -100,44 +100,48 @@
     <!-- Bootstrap JS -->
 <script>
     function validateForm() {
-        var categoryName = document.getElementById("form6Example1").value.trim();
-        var categoryImage = document.getElementById("formFile").value.trim();
+        // Get form elements
+        const categoryName = document.getElementById('form6Example1').value.trim();
+        const categoryImage = document.getElementById('formFile').value;
+        const categoryDesc = document.getElementById('productDesc').value.trim();
 
-
-        var categoryNameError = document.getElementById("categoryNameError");
-        var categoryImageError = document.getElementById("categoryImageError");
-
+        // Error elements
+        const categoryNameError = document.getElementById('categoryNameError');
+        const categoryImageError = document.getElementById('categoryImageError');
+        const categoryDescriptionError = document.getElementById('categoryDescriptionError');
 
         // Reset error messages
-        categoryNameError.textContent = "";
-        categoryImageError.textContent = "";
+        categoryNameError.textContent = '';
+        categoryImageError.textContent = '';
+        categoryDescriptionError.textContent = '';
 
+        let isValid = true;
 
-        // Validate category name
-
-
-         if (categoryName.trim() === "") {
-            document.getElementById("categoryNameError").innerHTML = "Category Name is required";
-            error = true;
+        // Validate Category Name
+        if (!categoryName) {
+            categoryNameError.textContent = 'Category name is required.';
+            isValid = false;
         }
 
-        // Check if a file is selected
-        if (categoryImage !== "") {
-            // Validate category image
-            var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+        // Validate Image (optional, but checking for file type if provided)
+        if (categoryImage) {
+            const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
             if (!allowedExtensions.exec(categoryImage)) {
-                categoryImageError.textContent = "Only JPG, JPEG, or PNG files are allowed";
-                return false;
+                categoryImageError.textContent = 'Please upload a valid image file (jpg, jpeg, png, gif).';
+                isValid = false;
             }
         }
 
-        // Validate maximum discount
-
+        // Validate Description
+        if (!categoryDesc) {
+            categoryDescriptionError.textContent = 'Description is required.';
+            isValid = false;
         }
 
-        return true; // Form is valid
+        return isValid;
     }
 </script>
+
 
 
 {% endblock %}
