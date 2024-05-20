@@ -11,68 +11,72 @@
             {{ message }}
         {% endfor %}
     </div>
-    <table class="table table-bordered table-striped">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">Sl No</th>
-                <th scope="col">Variant Name</th>
-                <th scope="col">Slug</th>
-                <th scope="col">Product</th>
-                <th scope="col">Category</th>
-                <th scope="col">Author</th>
-                <th scope="col">Offer</th>
-                <th scope="col">Edition</th>
-                <th scope="col">Price</th>
-                <th scope="col">Stock</th>
-                <th scope="col">Rating</th>
-                <th scope="col">Product Images</th>
-                <th scope="col">Status</th>
-                <th scope="col" colspan="2">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for i in variant %}
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-sm">
+            <thead class="thead-dark">
                 <tr>
-                    <th scope="row">{{ forloop.counter }}</th>
-                    <td>{{ i.variant_name }}</td>
-                    <td>{{ i.slug }}</td>
-                    <td>{{ i.product.product_name }}</td>
-                    <td>{{ i.category.category_name }}</td>
-                    <td>{{ i.author.author_name }}</td>
-                    <td>{{ i.offer.name }}</td>
-                    <td>{{ i.edition.edition_name }}</td>
-                    <td>{{ i.product_price }}</td>
-                    <td>{{ i.stock }}</td>
-                    <td>{{ i.rating }}</td>
-                    <td>
-                        {% for image in variant_images.items %}
-                            {% if image.0 == i.id %}
-                                {% for img in image.1|slice:":3" %}
-                                    <img src="{{ img.images.url }}" alt="Image" width="50" height="50">
-                                {% endfor %}
-                            {% endif %}
-                        {% endfor %}
-                    </td>
-                    <td>
-                        {% if i.is_active %}
-                            <span class="text-success">ACTIVE</span>
-                        {% else %}
-                            <span class="text-danger">BLOCK</span>
-                        {% endif %}
-                    </td>
-                    <td>
-                        <a class="btn btn-info btn-sm" href="{% url 'adminvariantedit' i.id %}" style="background-color:#FF6F61;">UPDATE</a>
-                        <a href="{% url 'adminvariantaction' i.id %}">
-                            {% if i.is_active %}
-                                <span class="text-danger">BLOCK</span>
-                            {% else %}
-                                <span class="text-success">UNBLOCK</span>
-                            {% endif %}
-                        </a>
-                    </td>
+                    <th scope="col">#</th>
+                    <th scope="col">Variant</th>
+                    <th scope="col">Slug</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Offer</th>
+                    <th scope="col">Edition</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Stock</th>
+                    <th scope="col">Rating</th>
+                    <th scope="col">Images</th>
+                    <th scope="col">Status</th>
+                    <th scope="col" colspan="2">Action</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for i in variant %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ i.variant_name }}</td>
+                        <td>{{ i.slug }}</td>
+                        <td>{{ i.product.product_name }}</td>
+                        <td>{{ i.category.category_name }}</td>
+                        <td>{{ i.author.author_name }}</td>
+                        <td>{{ i.offer.name }}</td>
+                        <td>{{ i.edition.edition_name }}</td>
+                        <td>{{ i.product_price }}</td>
+                        <td>{{ i.stock }}</td>
+                        <td>{{ i.rating }}</td>
+                        <td>
+                            {% for image in variant_images.items %}
+                                {% if image.0 == i.id %}
+                                    {% for img in image.1|slice:":2" %}
+                                        <img src="{{ img.images.url }}" alt="Image" width="50" height="50" class="img-thumbnail">
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% if i.is_active %}
+                                <span class="text-success">ACTIVE</span>
+                            {% else %}
+                                <span class="text-danger">BLOCKED</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a class="btn btn-sm btn-info" href="{% url 'adminvariantedit' i.id %}" style="background-color:#FF6F61;">UPDATE</a>
+                        </td>
+                        <td>
+                            <a href="{% url 'adminvariantaction' i.id %}">
+                                {% if i.is_active %}
+                                    <span class="btn btn-sm btn-danger">BLOCK</span>
+                                {% else %}
+                                    <span class="btn btn-sm btn-success">UNBLOCK</span>
+                                {% endif %}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endblock %}
