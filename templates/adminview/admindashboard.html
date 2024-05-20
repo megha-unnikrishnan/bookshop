@@ -11,7 +11,7 @@
          <div class="row g-4">
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-line fa-3x text-primary"></i>
+                            <i class="fa fa-chart-line fa-3x " style="color:#FF6F61"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Order count</p>
                                 <h6 class="mb-0">{{order_count}}</h6>
@@ -20,7 +20,7 @@
                     </div>
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-bar fa-3x text-primary"></i>
+                            <i class="fa fa-chart-bar fa-3x " style="color:#FF6F61"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Order Total</p>
                                 <h6 class="mb-0"><i class="fa-solid fa-indian-rupee-sign"></i><i class="fa-solid fa-indian-rupee-sign"></i>{{order_total|floatformat}}</h6>
@@ -28,8 +28,8 @@
                         </div>
                     </div>
                     <div class="col-sm-6 col-xl-3">
-                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-area fa-3x text-primary"></i>
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4" >
+                            <i class="fa fa-chart-area fa-3x " style="color:#FF6F61"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Today Total Revenue</p>
                                 <h6 class="mb-0"><i class="fa-solid fa-indian-rupee-sign"></i>₹ {% if today_revenue %} {{ today_revenue }} {% else %} 0 {% endif %}</h6>
@@ -39,7 +39,7 @@
                     </div>
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-pie fa-3x text-primary"></i>
+                            <i class="fa fa-chart-pie fa-3x " style="color:#FF6F61"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Today Sales Count</p>
                                 <h6 class="mb-0">{{today_count}}</h6>
@@ -53,7 +53,7 @@
                 <div class="row g-4">
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-line fa-3x text-primary"></i>
+                            <i class="fa fa-chart-line fa-3x " style="color:#FF6F61"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Weekly Sales count</p>
                                 <h6 class="mb-0">{{weekly_count}}</h6>
@@ -62,7 +62,7 @@
                     </div>
                      <div class="col-sm-6 col-xl-3">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-area fa-3x text-primary"></i>
+                            <i class="fa fa-chart-area fa-3x " style="color:#FF6F61"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Weekly Sales Revenue</p>
                                 <h6 class="mb-0"><i class="fa-solid fa-indian-rupee-sign"></i>₹ {% if weekly_revenue %} {{ weekly_revenue | floatformat}} {% else %} 0 {% endif %}</h6>
@@ -72,7 +72,7 @@
                     </div>
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-bar fa-3x text-primary"></i>
+                            <i class="fa fa-chart-bar fa-3x " style="color:#FF6F61"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Monthly Sales Count</p>
                                 <h6 class="mb-0"><i class="fa-solid fa-indian-rupee-sign"></i><i class="fa-solid fa-indian-rupee-sign"></i>{{monthly_count}}</h6>
@@ -81,7 +81,7 @@
                     </div>
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-pie fa-3x text-primary"></i>
+                            <i class="fa fa-chart-pie fa-3x " style="color:#FF6F61"></i>
                             <div class="ms-3">
                                  <p class="mb-2">Monthly Sales Revenue</p>
                                 <h6 class="mb-0"><i class="fa-solid fa-indian-rupee-sign"></i> {% if monthly_revenue %} {{ monthly_revenue | floatformat}} {% else %} 0 {% endif %}</h6>
@@ -91,7 +91,7 @@
                     </div>
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-pie fa-3x text-primary"></i>
+                            <i class="fa fa-chart-pie fa-3x " style="color:#FF6F61"></i>
                             <div class="ms-3">
                                  <p class="mb-2">Annual sales count</p>
                                 <h6 class="mb-0"><i class="fa-solid fa-indian-rupee-sign"></i>{{current_yearly_count}}</h6>
@@ -101,7 +101,7 @@
                     </div>
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-pie fa-3x text-primary"></i>
+                            <i class="fa fa-chart-pie fa-3x " style="color:#FF6F61"></i>
                             <div class="ms-3">
                                  <p class="mb-2">Annual sales revenue</p>
                                 <h6 class="mb-0"><i class="fa-solid fa-indian-rupee-sign"></i>{{current_yearly_revenue|floatformat}}</h6>
@@ -111,7 +111,7 @@
                     </div>
                      <div class="col-sm-6 col-xl-3">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-pie fa-3x text-primary"></i>
+                            <i class="fa fa-chart-pie fa-3x " style="color:#FF6F61"></i>
                             <div class="ms-3">
                                  <p class="mb-2">Total Discount sales</p>
                                 <h6 class="mb-0"><i class="fa-solid fa-indian-rupee-sign"></i>{{common_discount|floatformat}}</h6>
@@ -221,7 +221,7 @@
                 datasets: [{
                     label: 'Total Quantity',
                     data: {{ quantities|safe }},
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    backgroundColor: 'rgba(255, 99, 71,0.6)',
                     borderWidth: 0
                 }]
             },
@@ -245,7 +245,7 @@
                 datasets: [{
                     label: 'Total Quantity',
                     data: {{ cat_quantities|safe }},
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    backgroundColor: 'rgba(255, 165, 0)',
                     borderWidth: 0
                 }]
             },
@@ -271,8 +271,8 @@
             datasets: [{
                 label: 'Yearly Sales',
                 data: {{ chart_data|safe }},
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(255, 99, 71,0.6)',
+                borderColor: 'rgba(255, 99, 71,0.6)',
                 borderWidth: 1
             }]
         },
@@ -295,8 +295,8 @@
         datasets: [{
             label: 'Monthly Sales',
             data: {{ chart_datas|safe }},
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            borderColor: 'rgba(54, 162, 235, 1)',
+            backgroundColor: 'rgba(255, 99, 71,0.6)',
+            borderColor: 'rgba(255, 99, 71,0.6)',
             borderWidth: 1
         }]
     };
@@ -329,10 +329,10 @@
 <div class="container-fluid pt-4 px-4" style="background-color: white;" xmlns="http://www.w3.org/1999/html">
   <div class="bg-light rounded p-4">
     <div class="d-flex align-items-center justify-content-between mb-4">
-      <h2 class="mb-0">Sales Reports</h2>
+      <h2 class="mb-0">Recent Reports</h2>
     <div class="d-flex flex-column gap-3">
-    <button class="btn btn-sm btn-success" onclick="printTable()">Download PDF </button>
-    <button class="btn btn-sm btn-success" onclick="exportReportToExcel()">Download Excel </button>
+    <button class="btn btn-sm btn-success" style="background-color:#FF6F61" onclick="printTable()">Download PDF </button>
+    <button class="btn btn-sm btn-success" onclick="exportReportToExcel()" style="background-color:#FF6F61">Download Excel </button>
 </div>
 
     </div>
@@ -351,7 +351,7 @@
                 <input type="date" class="form-control form-control-sm" id="endDate" name="endDate">
               </div>
               <div class="col-sm-3">
-                <button type="submit" class="btn btn-primary" style="margin-top: 9%;">Filter</button>
+                <button type="submit"  style="margin-top: 9%;background-color:#FF6F61">Filter</button>
               </div>
             </div>
 
@@ -399,11 +399,11 @@
                 <div class="bg-light rounded-top p-4">
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">estore.com</a>, All Right Reserved.
+                            &copy; <a style="color:#FF6F61" href="#">estore.com</a>, All Right Reserved.
                         </div>
                         <div class="col-12 col-sm-6 text-center text-sm-end">
                             <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a href="">Megha M</a>
+                            Designed By <a style="color:#FF6F61" href="">Megha M</a>
                         </div>
                     </div>
                 </div>
