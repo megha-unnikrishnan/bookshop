@@ -2,7 +2,11 @@
 {% load static %}
 
 {% block content %}
-
+    <div class="messages" style="color:red;">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
 
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -10,24 +14,28 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title text-center mb-4">Edit Offer</h4>
-                    <form class="forms-sample" method="POST" action="" enctype="multipart/form-data">
+                    <form class="forms-sample" id="offerForm" method="POST" action="" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="mb-3">
                             <label for="offer_name" class="form-label">Offer Name</label>
-                            <input type="text" class="form-control" id="offer_name" name="offer_name" placeholder="Enter offer name" value="{{ offer.name }}" required>
+                            <input type="text" class="form-control" id="offer_name" name="offer_name" placeholder="Enter offer name" value="{{ offer.name }}" >
+                            <div class="invalid-feedback">Please enter an offer name.</div>
                         </div>
                         <div class="mb-3">
                             <label for="off_percent" class="form-label">Offer Percentage</label>
-                            <input type="text" class="form-control" id="off_percent" name="off_percent" placeholder="Enter offer percentage" value="{{ offer.off_percent }}" required>
+                            <input type="number" class="form-control" id="off_percent" name="off_percent" placeholder="Enter offer percentage" value="{{ offer.off_percent }}" min="0" max="100" >
+                            <div class="invalid-feedback">Please enter a valid offer percentage (0-100).</div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="start_date" class="form-label">Start Date</label>
-                                <input type="date" class="form-control" id="start_date" name="start_date" value="{{ offer.start_date|date:'Y-m-d' }}" required>
+                                <input type="date" class="form-control" id="start_date" name="start_date" value="{{ offer.start_date|date:'Y-m-d' }}" >
+                                <div class="invalid-feedback">Please select a start date.</div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="end_date" class="form-label">End Date</label>
-                                <input type="date" class="form-control" id="end_date" name="end_date" value="{{ offer.end_date|date:'Y-m-d' }}" required>
+                                <input type="date" class="form-control" id="end_date" name="end_date" value="{{ offer.end_date|date:'Y-m-d' }}" >
+                                <div class="invalid-feedback">Please select an end date.</div>
                             </div>
                         </div>
                         <div class="d-grid">
@@ -41,41 +49,48 @@
 </div>
 
 <script>
-    function validateOfferForm() {
-        var offerName = document.getElementById("offer_name").value;
-        var percentage = document.getElementById("off_percent").value;
-        var startDate = document.getElementById("start_date").value;
-        var endDate = document.getElementById("end_date").value;
+document.getElementById('offerForm').addEventListener('submit', function(event) {
+    let isValid = true;
 
-        var error = false;
-
-        // Clear previous error messages
-        document.getElementById("offerNameError").innerHTML = "";
-        document.getElementById("percentageError").innerHTML = "";
-        document.getElementById("startDateError").innerHTML = "";
-        document.getElementById("endDateError").innerHTML = "";
-
-        // Validate inputs
-        if (offerName.trim() === "") {
-            document.getElementById("offerNameError").innerHTML = "Offer Name is required";
-            error = true;
-        }
-        if (percentage === "") {
-            document.getElementById("percentageError").innerHTML = "Percentage Discount is required";
-            error = true;
-        }
-        if (startDate === "") {
-            document.getElementById("startDateError").innerHTML = "Start Date is required";
-            error = true;
-        }
-        if (endDate === "") {
-            document.getElementById("endDateError").innerHTML = "End Date is required";
-            error = true;
-        }
-
-        return !error;
+    const offerName = document.getElementById('offer_name');
+    if (!offerName.value.trim()) {
+        isValid = false;
+        offerName.classList.add('is-invalid');
+    } else {
+        offerName.classList.remove('is-invalid');
     }
+
+    const offPercent = document.getElementById('off_percent');
+    const percentValue = parseFloat(offPercent.value);
+    if (isNaN(percentValue) || percentValue < 0 || percentValue > 100) {
+        isValid = false;
+        offPercent.classList.add('is-invalid');
+    } else {
+        offPercent.classList.remove('is-invalid');
+    }
+
+    const startDate = document.getElementById('start_date');
+    if (!startDate.value) {
+        isValid = false;
+        startDate.classList.add('is-invalid');
+    } else {
+        startDate.classList.remove('is-invalid');
+    }
+
+    const endDate = document.getElementById('end_date');
+    if (!endDate.value) {
+        isValid = false;
+        endDate.classList.add('is-invalid');
+    } else {
+        endDate.classList.remove('is-invalid');
+    }
+
+    if (!isValid) {
+        event.preventDefault();
+    }
+});
 </script>
+
     <!-- Bootstrap JS -->
 
 {% endblock %}
