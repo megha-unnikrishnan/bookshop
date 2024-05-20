@@ -358,16 +358,15 @@ def checkout_view(request, id):
         if 'email' not in request.session:
             messages.error(request, 'You need to log in to add items to the cart.')
 
-        address = UserAddress.objects.get(id=id)
         add_id = id
         print(add_id)
         order_id = ''
-        callback = "http://" + "estoreshop.ltd" + "/cart/checkout-view/{}".format(add_id)
+        callback = "http://" + "127.0.0.1:8000" + "/cart/checkout-view/{}".format(add_id)
         payment_method = request.GET.get('payment_method')
 
         print(payment_method)
         razorpay_id = request.GET.get('razor_id')
-        print(address)
+
         print(razorpay_id)
         user = CustomUser.objects.get(id=request.user.id)
         print(user)
@@ -399,21 +398,11 @@ def checkout_view(request, id):
 
             discount = int(mrp - offerprice)
 
-        # coupon
 
-        # category
-        # category_offer_amount=0
-        # cat_ofr_obj = CartItem.objects.filter(cart=cart_obj)
-        # for items in cat_ofr_obj:
-        #     if not items.product.category.offer_cat.is_expired():
-        #         category_offer_amount += int(items.sub_total_with_category_offer())
         category_offer_amount = 0
         cat_ofr_obj = CartItem.objects.filter(cart=cart_obj)
 
-        # for items in cat_ofr_obj:
-        #     offer_cat = items.product.category.offer_cat
-        #     if offer_cat and not offer_cat.is_expired():
-        #         category_offer_amount += int(items.sub_total_with_category_offer())
+
 
         if cart_obj.coupon:
 
@@ -444,6 +433,23 @@ def checkout_view(request, id):
         grand_total=float(grand_total)
         # grand_total=grand_total * 100
         print(grand_total)
+        try:
+            address = UserAddress.objects.get(id=id)
+        except UserAddress.DoesNotExist:
+            if payment_method == 'razorpay':
+                user.wallet += Decimal(grand_total)
+                wallet = WalletBook.objects.create(
+                    customer=user,
+                    description="Amount received due to the failure of order!",
+                    increment=True,
+                    amount=str(grand_total)
+                )
+                user.save()
+                messages.error(request,
+                               f'Regrettably, your order has not been successful. Your payment of Rs. {grand_total} will be refunded to your wallet due to the absence of a user address. Please create a new address or select an existing one.')
+                return redirect('checkout')
+            messages.error(request, 'User Address not found! Create a new one or select another address.')
+            return redirect('checkout')
         context = {
             'address': address,
             'cart_items': cart_items,
@@ -473,8 +479,41 @@ def checkout_view(request, id):
                 messages.error(request, f"Payment failed. Error code: {error_code}. Description: {error_description}")
 
         if payment_method == 'razorpay':
+            try:
+                useraddress = UserAddress.objects.get(id=id)
+            except UserAddress.DoesNotExist:
+                user.wallet += Decimal(grand_total)
+                wallet = WalletBook.objects.create(
+                    customer=user,
+                    description="Amount received due to the failure of order!",
+                    increment=True,
+                    amount=str(grand_total)
+                )
+                user.save()
+                messages.error(request,
+                               f'Regrettably, your order has not been successful. Your payment of Rs. {grand_total} will be refunded to your wallet due to the absence of a user address. Please create a new address or select an existing one.')
+                return redirect('checkout')
+
+            for item in cart_items:
+                try:
+                    product_obj = Bookvariant.objects.get(id=item.product.id, is_active=False)
+                    user.wallet += Decimal(grand_total)
+                    wallet = WalletBook.objects.create(
+                        customer=user,
+                        description="Amount received due to the failure of order!",
+                        increment=True,
+                        amount=str(grand_total)
+                    )
+                    user.save()
+
+                    messages.error(request,
+                                   f' Apologies, your {product_obj.variant_name} cannot be processed now. The {grand_total} will be refunded as the product is unavailable. Please try again later.')
+                    return redirect('checkoutview', context)
+                except Bookvariant.DoesNotExist:
+                    pass
             order = Order()
             order.user = user
+
             order_address = OrderAddress.objects.create(
                 # Assuming your OrderAddress has similar fields to UserAddress
                 user=address.user,
@@ -551,10 +590,30 @@ def checkout_view(request, id):
 
         if request.method == 'POST':
             paymentmethod = request.POST['payment']
+            print("before try")
+            try:
+                useraddress = UserAddress.objects.get(id=id)
+            except UserAddress.DoesNotExist:
+                messages.error(request, 'User Address not found! Create a new one or select another address.')
+                return redirect('checkout')
+            print("after try")
+            for item in cart_items:
+                try:
+                    product_obj = Bookvariant.objects.get(id=item.product.id, is_active=False)
+                    messages.error(request,
+                                   f'Apologies!!{product_obj.variant_name} is not available for sale now.Try again Later!!.')
+                    return redirect('checkoutview', context)
+                except Bookvariant.DoesNotExist:
+                    pass
             if paymentmethod == 'cod':
                 if grand_total > 1000:
                     messages.error(request, "Cash on Delivery is not available for orders above Rs 1000.")
                     return redirect('checkoutview', id=id)
+            if paymentmethod == 'wallet':
+                if grand_total > user.wallet:
+                    messages.error(request, "You dont have sufficient amount in wallet to purchase")
+                    return redirect('checkoutview', id=id)
+
             order = Order()
             order.user = user
             order_address = OrderAddress.objects.create(
@@ -685,6 +744,7 @@ def checkout_view(request, id):
         messages.error(request, 'An error occurred during checkout. Please try again later.')
 
     return render(request, 'userview/placeorder.html',context)
+
 
 
 def confirm_order(request):
