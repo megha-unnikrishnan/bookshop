@@ -5,7 +5,7 @@
 {% block content %}
  <div class="container mt-5">
 <div class="container mt-5">
-  <a href="{% url 'addcoupon' %}" class="btn btn-primary" data-toggle="modal" style="    float: inline-end;">
+  <a href="{% url 'addcoupon' %}" class="btn btn-primary" data-toggle="modal" style="    float: inline-end;background-color:#FF6F61;">
     Add Coupons
   </a>
 </div>
@@ -46,7 +46,7 @@
                                 <td>{{i.expiry_date }}</td>
                                 <td>{% if i.is_active %}<span class="text-success">ACTIVE</span>{% else %}<span class="text-danger">BLOCK</span>{% endif %}</td>
         <td>
-              <a class="btn btn-info"  href="{% url 'couponedit' i.id %}">UPDATE</a>
+              <a class="btn btn-info"  href="{% url 'couponedit' i.id %}" style="background-color:#FF6F61;">UPDATE</a>
           <a href="{% url 'couponaction' i.id %}">
             {% if i.is_active %}
             <span class="text-danger"> BLOCK </span>
