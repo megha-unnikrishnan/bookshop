@@ -84,15 +84,7 @@
                     </div>
 
 
-                    <div class="row mb-4">
-                        <div class="col">
-                          <div class="form-outline">
-                                  <label class="form-label" for="form6Example1">Maximum AMount</label>
-                              <input type="text" id="form6Example2" value="{{ category.max_discount }}" class="form-control bg-grey text-black" name="maxdiscount" />
-                                 <span class="text-danger" id="maxDiscountError"></span>
-                          </div>
-                        </div>
-      </div>
+
 
                     <!-- Submit button -->
                     <div class="text-end">
@@ -110,16 +102,16 @@
     function validateForm() {
         var categoryName = document.getElementById("form6Example1").value.trim();
         var categoryImage = document.getElementById("formFile").value.trim();
-        var maxDiscount = document.getElementById("form6Example2").value.trim();
+
 
         var categoryNameError = document.getElementById("categoryNameError");
         var categoryImageError = document.getElementById("categoryImageError");
-        var maxDiscountError = document.getElementById("maxDiscountError");
+
 
         // Reset error messages
         categoryNameError.textContent = "";
         categoryImageError.textContent = "";
-        maxDiscountError.textContent = "";
+
 
         // Validate category name
 
@@ -140,15 +132,7 @@
         }
 
         // Validate maximum discount
-        if (maxDiscount.trim() === "") {
-            maxDiscountError.textContent = "Maximum discount amount is required.";
-            return false;
-        } else {
-            // Check if max discount is a valid number
-            if (isNaN(maxDiscount)) {
-                maxDiscountError.textContent = "Please enter a valid number.";
-                return false;
-            }
+
         }
 
         return true; // Form is valid
