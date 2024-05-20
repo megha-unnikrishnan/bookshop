@@ -3,6 +3,11 @@
 {% load static %}
 
  {% block content %}
+<div style="color:red;text-align:center">
+    {% for message in messages %}
+                                {{ message }}
+                            {% endfor %}
+</div>
 <div class="container mt-5">
     <h2 style="    text-align: center;
     margin-bottom: 4%;">Select Address & Proceed to Continue</h2>
