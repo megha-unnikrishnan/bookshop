@@ -1046,7 +1046,7 @@ def admin_edit_edition(request,id):
                     if existedition.exists():
                         messages.error(request,  f'{name} is already exists')
                         return redirect('adminedition')
-
+                edition.edition_name=name
                 edition.edition_desc=desc
                 edition.publisher=publisher
                 edition.year=year
