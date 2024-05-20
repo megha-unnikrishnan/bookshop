@@ -506,7 +506,7 @@ def admin_add_category(request):
                         return redirect('admincategory')
                 else:
                     offer_obj = None
-                maxamount=request.POST['maxdiscount']
+
 
 
                 existing_category = Category.objects.filter(category_name__iexact=name).first()
@@ -514,7 +514,7 @@ def admin_add_category(request):
                     messages.error(request, f"Category '{name}' already exists!!")
                     return redirect('admincategory')
 
-                category=Category(category_name=name,category_image=image,category_desc=description,offer_cat=offer_obj,max_discount=maxamount)
+                category=Category(category_name=name,category_image=image,category_desc=description,offer_cat=offer_obj)
                 category.save()
                 messages.error(request, 'Saved Successfully')
                 return redirect("admincategory")
@@ -563,7 +563,7 @@ def admin_edit_category(request, id):
                 name = request.POST['catname'].strip()
                 desc = request.POST['description']
                 category_offer=request.POST['offer_cat']
-                maxdiscount=request.POST['maxdiscount']
+
                 if name != category.category_name:
                     exitscat = Category.objects.filter(category_name__iexact=name)
                     if exitscat.exists():
@@ -573,8 +573,6 @@ def admin_edit_category(request, id):
                 category.category_name = name
                 category.category_desc = desc
 
-                if maxdiscount != '':
-                    category.max_discount = maxdiscount
 
                 # Check if a new offer has been selected
                 if category_offer != '':
@@ -1416,7 +1414,7 @@ def admin_order_update(request, id):
             return redirect('adminorder')
     return redirect('adminlogin')
 
-def admin_sales_reports(request):
+def admin_reports(request):
     context = {}
     try:
         book = Bookvariant.objects.all()
@@ -1430,3 +1428,53 @@ def admin_sales_reports(request):
         print(e)
 
     return render(request, 'adminview/admin_sales_report.html', context)
+
+
+def admin_sales_reports(request):
+    context = {}
+    if request.method == 'POST':
+        start_date = request.POST.get('start_date')
+        end_date = request.POST.get('end_date')
+
+        # Convert string dates to datetime objects
+        start_date = datetime.strptime(start_date, '%Y-%m-%d')
+        end_date = datetime.strptime(end_date, '%Y-%m-%d')
+
+        # Adjust end date to include the entire day
+        end_date += timedelta(days=1)
+
+        orders = Order.objects.filter(
+            created__range=(start_date, end_date)
+        )
+
+        order_report = []
+
+        # Calculate total sales revenue and total discount
+        total_sales_revenue = orders.aggregate(total_sales=Sum('order_total'))['total_sales'] or 0
+        total_discount = orders.aggregate(
+            total_discount=Sum('discount_amount') + Sum('coupon_mount')  # Updated field name to 'coupon_mount'
+        )['total_discount'] or 0
+
+        discount_amount = orders.aggregate(
+            discount_amount=Sum('discount_amount')
+        )['discount_amount'] or 0
+        coupon_amount = orders.aggregate(
+            coupon_amount=Sum('coupon_mount')  # Updated field name to 'coupon_mount'
+        )['coupon_amount'] or 0
+
+        # Calculate total orders count
+        total_orders_count = orders.count()
+
+        order_report.append({
+            'start_date': start_date.strftime('%d-%m-%Y'),
+            'end_date': (end_date - timedelta(days=1)).strftime('%d-%m-%Y'),
+            'total_orders_count': total_orders_count,
+            'total_sales_revenue': total_sales_revenue,
+            'total_discount': total_discount,
+            'discount_amount': discount_amount,
+            'coupon_amount': coupon_amount
+        })
+        context = {'order_report': order_report}
+        return render(request, 'adminview/admin-sales-report-view.html', context)
+
+    return render(request, 'adminview/admin-sales-report-view.html', context)
