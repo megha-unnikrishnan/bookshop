@@ -5,7 +5,7 @@
 {% block content %}
  <div class="container mt-5">
 <div class="container mt-5">
-  <a href="{% url 'adminaddproduct' %}" class="btn btn-primary" data-toggle="modal" style="    float: inline-end;">
+  <a href="{% url 'adminaddproduct' %}" class="btn btn-primary" style="background-color:#FF6F61;"data-toggle="modal" style="    float: inline-end;">
     Add Product
   </a>
 </div>
@@ -47,7 +47,7 @@
 
                                   <td>{% if i.is_active %}<span class="text-success">ACTIVE</span>{% else %}<span class="text-danger">BLOCK</span>{% endif %}</td>
         <td>
-              <a class="btn btn-info"  href="{% url 'admineditproduct' i.id %}">UPDATE</a>
+              <a class="btn btn-info"  href="{% url 'admineditproduct' i.id %}" style="background-color:#FF6F61;">UPDATE</a>
           <a href="{% url 'adminproductaction' i.id %}">
             {% if i.is_active %}
             <span class="text-danger"> BLOCK </span>
