@@ -655,32 +655,49 @@ def admin_offer(request):
     return redirect('adminlogin')
 
 @cache_control(no_cache=True, no_store=True)
-def admin_edit_offer(request,id):
+def admin_edit_offer(request, id):
     if 'email' in request.session:
-        context={}
+        context = {}
         try:
             offer = Offer.objects.get(id=id)
             context = {'offer': offer}
             if request.method == "POST":
-                name = request.POST['offer_name']
-                percent = request.POST['off_percent']
+                name = request.POST['offer_name'].strip()
+                percent = request.POST['off_percent'].strip()
                 start_date = request.POST['start_date']
                 end_date = request.POST['end_date']
+
+                # Validate offer percentage
+                try:
+                    percent = float(percent)
+                    if percent > 70:
+                        messages.error(request, "Offer percentage cannot be greater than 70.")
+                        return redirect('admineditoffer', id=id)
+                except ValueError:
+                    messages.error(request, "Offer percentage must be a valid number.")
+                    return redirect('admineditoffer', id=id)
+
+                # Check if the offer name is already taken
                 if name != offer.name:
                     existsoffer = Offer.objects.filter(name__iexact=name)
                     if existsoffer.exists():
-                        messages.error(request,  f' Offer {name} is already exists')
-                        return redirect('adminoffer')
-                offer.off_percent=percent
-                offer.end_date=end_date
-                offer.start_date=start_date
+                        messages.error(request, f' {name} already exists')
+                        return redirect('admineditoffer',id=id)
+
+                # Update the offer
+                offer.off_percent = percent
+                offer.start_date = start_date
+                offer.end_date = end_date
                 offer.save()
-                messages.info(request, "Succesfully updated all details")
+                messages.info(request, "Successfully updated all details")
                 return redirect('adminoffer')
+        except ObjectDoesNotExist:
+            messages.error(request, "Offer not found.")
+            return redirect('adminoffer')
         except Exception as e:
             print(e)
-            messages.info(request, "Updated failed")
-            return redirect('admineditoffer')
+            messages.error(request, "Update failed due to an unexpected error.")
+            return redirect('admineditoffer', id=id)
 
         return render(request, 'adminview/admin-edit-offer.html', context)
     return redirect('adminlogin')
