@@ -17,7 +17,7 @@
                             <div class="col">
                                 <div class="form-outline">
                                     <label class="form-label" for="authorName">Author Name</label>
-                                    <input type="text" id="authorName" value="{{ author.author_name }}" class="form-control bg-grey text-black" name="name" required/>
+                                    <input type="text" id="authorName" value="{{ author.author_name }}" class="form-control bg-grey text-black" name="name" />
                                     <span class="text-danger" id="authorNameError"></span>
                                 </div>
                             </div>
@@ -60,36 +60,46 @@
     <!-- Bootstrap JS -->
 <script>
     function validateAuthorForm() {
-        var name = document.getElementById("authorName").value;
-        var image = document.getElementById("authorImage").value;
-        var description = document.getElementById("authorDesc").value;
+        // Get form elements
+        const authorName = document.getElementById('authorName').value.trim();
+        const authorImage = document.getElementById('formFile').value;
+        const authorDesc = document.getElementById('authorDesc').value.trim();
 
-        var error = false;
+        // Error elements
+        const authorNameError = document.getElementById('authorNameError');
+        const authorImageError = document.getElementById('authorImageError');
+        const authorDescError = document.getElementById('authorDescError');
 
-        // Clear previous error messages
-        document.getElementById("authorNameError").innerHTML = "";
-        document.getElementById("authorImageError").innerHTML = "";
-        document.getElementById("authorDescError").innerHTML = "";
+        // Reset error messages
+        authorNameError.textContent = '';
+        authorImageError.textContent = '';
+        authorDescError.textContent = '';
 
-        // Validate inputs
-        if (name.trim() === "") {
-            document.getElementById("authorNameError").innerHTML = "Author Name is required";
-            error = true;
+        let isValid = true;
+
+        // Validate Author Name
+        if (!authorName) {
+            authorNameError.textContent = 'Author name is required.';
+            isValid = false;
         }
-        if (image !== "") { // Check if image field is not empty
-            // Validate file type for author image
-            var allowedExtensions = /\.(png|jpe?g)$/i; // Adjusted regex to allow PNG and JPEG
-            if (!allowedExtensions.test(image)) {
-                document.getElementById("authorImageError").innerHTML = "Only PNG and JPEG files are allowed";
-                error = true;
+
+        // Validate Image (optional, but checking for file type if provided)
+        if (authorImage) {
+            const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+            if (!allowedExtensions.exec(authorImage)) {
+                authorImageError.textContent = 'Please upload a valid image file (jpg, jpeg, png, gif).';
+                isValid = false;
             }
         }
-        if (description.trim() === "") {
-            document.getElementById("authorDescError").innerHTML = "Description is required";
-            error = true;
+
+        // Validate Description
+        if (!authorDesc) {
+            authorDescError.textContent = 'Description is required.';
+            isValid = false;
         }
 
-        return !error;
+        return isValid;
     }
 </script>
+
 {% endblock %}
