@@ -362,7 +362,7 @@ def checkout_view(request, id):
         add_id = id
         print(add_id)
         order_id = ''
-        callback = "http://" + "127.0.0.1:8000" + "/cart/checkout-view/{}".format(add_id)
+        callback = "http://" + "estoreshop.ltd" + "/cart/checkout-view/{}".format(add_id)
         payment_method = request.GET.get('payment_method')
 
         print(payment_method)
