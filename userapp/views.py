@@ -556,7 +556,7 @@ def address_book(request):
                 'address':address
             }
 
-        return redirect('userlogin')
+        
     except Exception as e:
         print(e)
     return render(request, 'userview/addressbook.html', context)
