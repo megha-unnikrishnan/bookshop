@@ -3,7 +3,6 @@
 
 {% block content %}
 
-
 <div class="container-fluid mt-5">
     <div class="card border">
         <div class="card-header bg-light">
@@ -19,36 +18,35 @@
             <h5 class="card-title text-dark mb-4">Edition Details</h5>
 
             <!-- Edit edition form -->
-            <form enctype="multipart/form-data" method="post" class="border p-4 rounded">
+            <form enctype="multipart/form-data" method="post" class="border p-4 rounded" id="editEditionForm">
                 {% csrf_token %}
                 <div class="row mb-4">
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="editionName" class="form-label">Edition Name</label>
-                            <input type="text" id="editionName" value="{{ edition.edition_name }}" class="form-control" name="name" required/>
-                            <span class="text-danger" id="productNameError"></span>
+                            <input type="text" id="editionName" value="{{ edition.edition_name }}" class="form-control" name="name" />
+                            <span class="text-danger" id="editionNameError"></span>
                         </div>
-
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="editionDesc" class="form-label">Description</label>
                             <textarea class="form-control" id="editionDesc" rows="4" name="description">{{ edition.edition_desc }}</textarea>
-                            <span class="text-danger" id="descriptionError"></span>
+                            <span class="text-danger" id="editionDescError"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="editionPublisher" class="form-label">Edition Publisher</label>
-                            <input type="text" id="editionPublisher" value="{{ edition.publisher }}" class="form-control" name="publisher" required/>
-                            <span class="text-danger" id="publishError"></span>
+                            <input type="text" id="editionPublisher" value="{{ edition.publisher }}" class="form-control" name="publisher" />
+                            <span class="text-danger" id="editionPublisherError"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="editionYear" class="form-label">Edition Year</label>
-                            <input type="text" id="editionYear" value="{{ edition.year }}" class="form-control" name="year" required/>
-                            <span class="text-danger" id="yearError"></span>
+                            <input type="text" id="editionYear" value="{{ edition.year }}" class="form-control" name="year" />
+                            <span class="text-danger" id="editionYearError"></span>
                         </div>
                     </div>
                 </div>
@@ -62,41 +60,68 @@
         </div>
     </div>
 </div>
+
 <script>
-    function validateEditionForm() {
-        var productName = document.getElementById("editionName").value;
-        var description = document.getElementById("editionDesc").value;
-        var publish = document.getElementById("editionPublisher").value;
-        var year = document.getElementById("editionYear").value;
+document.getElementById('editEditionForm').addEventListener('submit', function(event) {
+    let isValid = true;
 
-        var error = false;
-
-        // Clear previous error messages
-        document.getElementById("productNameError").innerHTML = "";
-        document.getElementById("descriptionError").innerHTML = "";
-        document.getElementById("publishError").innerHTML = "";
-        document.getElementById("yearError").innerHTML = "";
-
-        // Validate inputs
-        if (productName.trim() === "") {
-            document.getElementById("productNameError").innerHTML = "Edition Name is required";
-            error = true;
-        }
-        if (description.trim() === "") {
-            document.getElementById("descriptionError").innerHTML = "Description is required";
-            error = true;
-        }
-        if (publish.trim() === "") {
-            document.getElementById("publishError").innerHTML = "Publisher Name is required";
-            error = true;
-        }
-        if (year === "") {
-            document.getElementById("yearError").innerHTML = "Year is required";
-            error = true;
-        }
-
-        return !error;
+    // Edition Name validation
+    const editionName = document.getElementById('editionName');
+    const editionNameError = document.getElementById('editionNameError');
+    if (!editionName.value.trim()) {
+        isValid = false;
+        editionName.classList.add('is-invalid');
+        editionNameError.textContent = 'Please enter an edition name.';
+    } else {
+        editionName.classList.remove('is-invalid');
+        editionNameError.textContent = '';
     }
+
+    // Edition Description validation
+    const editionDesc = document.getElementById('editionDesc');
+    const editionDescError = document.getElementById('editionDescError');
+    if (!editionDesc.value.trim()) {
+        isValid = false;
+        editionDesc.classList.add('is-invalid');
+        editionDescError.textContent = 'Please enter a description.';
+    } else {
+        editionDesc.classList.remove('is-invalid');
+        editionDescError.textContent = '';
+    }
+
+    // Edition Publisher validation
+    const editionPublisher = document.getElementById('editionPublisher');
+    const editionPublisherError = document.getElementById('editionPublisherError');
+    if (!editionPublisher.value.trim()) {
+        isValid = false;
+        editionPublisher.classList.add('is-invalid');
+        editionPublisherError.textContent = 'Please enter a publisher.';
+    } else {
+        editionPublisher.classList.remove('is-invalid');
+        editionPublisherError.textContent = '';
+    }
+
+    // Edition Year validation
+    const editionYear = document.getElementById('editionYear');
+    const editionYearError = document.getElementById('editionYearError');
+    const yearValue = editionYear.value.trim();
+    if (!yearValue) {
+        isValid = false;
+        editionYear.classList.add('is-invalid');
+        editionYearError.textContent = 'Please enter a year.';
+    } else if (isNaN(yearValue) || yearValue.length !== 4 || yearValue < 1900 || yearValue > new Date().getFullYear()) {
+        isValid = false;
+        editionYear.classList.add('is-invalid');
+        editionYearError.textContent = 'Please enter a valid year (1900-present).';
+    } else {
+        editionYear.classList.remove('is-invalid');
+        editionYearError.textContent = '';
+    }
+
+    if (!isValid) {
+        event.preventDefault();
+    }
+});
 </script>
 
     <!-- Bootstrap JS -->
