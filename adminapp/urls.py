@@ -50,3 +50,4 @@ urlpatterns=[
     path('admin-reports/',views.admin_reports,name='adminreports')
 
    
+]
