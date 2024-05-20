@@ -43,7 +43,7 @@
                                 <td>{{ order.order_total }}</td>
                                 <td>{% if order.payment.is_paid %}Paid{% else %}Pending{% endif %}</td>
                                 <td>{% if order.status %}{{ order.status }}{% else %}Pending{% endif %}</td>
-                                <td><a class="btn btn-sm btn-success" href="{% url 'adminorderupdate' order.id %}">Detail</a></td>
+                                <td><a class="btn btn-sm btn-success" href="{% url 'adminorderupdate' order.id %}" style="background-color:#FF6F61;">Detail</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>
