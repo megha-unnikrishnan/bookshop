@@ -11,8 +11,8 @@
         <div class="d-flex align-items-center justify-content-between mb-4">
             <h3 class="mb-0">Stock Reports</h3>
             <div class="d-flex flex-column gap-3">
-                <button class="btn btn-sm btn-info" onclick="printOrderTable()">Download PDF </button>
-                <button class="btn btn-sm btn-info" onclick="exportOrderReportToExcel()">Download Excel</button>
+                <button class="btn btn-sm btn-info" style="background-color:#FF6F61;" onclick="printOrderTable()">Download PDF </button>
+                <button class="btn btn-sm btn-info" style="background-color:#FF6F61;" onclick="exportOrderReportToExcel()">Download Excel</button>
             </div>
         </div>
         <div class="table-responsive">
@@ -35,7 +35,7 @@
                         <td>{{ order.variant_name }}</td>
                         <td>{{ order.stock }}</td>
                         <td>{{ order.product_price }}</td>
-                         <td><a class="btn btn-sm btn-info" href="">Detail</a></td>
+                         <td><a class="btn btn-sm btn-info" href="" style="background-color:#FF6F61;">Detail</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -49,8 +49,8 @@
         <div class="d-flex align-items-center justify-content-between mb-4">
             <h3 class="m5">Cancel Reports</h3>
             <div class="d-flex flex-column gap-3">
-                <button class="btn btn-sm btn-info" onclick="printCancelTable()">Download PDF</button>
-                <button class="btn btn-sm btn-info" onclick="exportCancelTable()">Download Excel</button>
+                <button class="btn btn-sm btn-info" style="background-color:#FF6F61;" onclick="printCancelTable()">Download PDF</button>
+                <button class="btn btn-sm btn-info" style="background-color:#FF6F61;" onclick="exportCancelTable()">Download Excel</button>
             </div>
         </div>
         <div class="table-responsive">
@@ -75,7 +75,7 @@
                         <td>{{ order.return_reason }}</td>
                         <td>{{ order.product_price }}</td>
                         <td>{{ order.quantity }}</td>
-                        <td><a class="btn btn-sm btn-info" href="">Detail</a></td>
+                        <td><a class="btn btn-sm btn-info" href="" style="background-color:#FF6F61;">Detail</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
