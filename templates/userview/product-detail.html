@@ -21,31 +21,27 @@
         {% if product %}
 <div class="row">
 
-<div class="col-md-12 col-sm-12 col-lg-6 text-center">
-  <div class="xzoom" style="min-width:18rem;">
-    <!-- Main Product Image -->
-    <img class="img-fluid" 
-         src="{{product.product.product_image.url}}" 
-         id="zoom" 
-         data-zoom-image="{{product.product.product_image.url}}" 
-         style="transition: transform 0.4s ease; max-height: 400px;" 
-         onmouseover="this.style.transform='scale(1.2)'" 
-         onmouseout="this.style.transform='scale(1)'">
-    
-    <div class="product-slider-single-nav normal-slider mt-3">
+  <div class="col-md-12 col-sm-12 col-md-12 col-lg-6 text-center">
+    <div style="min-width:18rem;" class="xzoom">
+      <img  height="300" width="300" src="{{product.product.product_image.url}}" id="zoom" data-zoom-image="{{product.product.product_image.url}}" style="transition: transform 0.4s ease;" onmouseover="this.style.transform='scale(1.4)'" onmouseout="this.style.transform='scale(1)'">
+
+
+         <div class="product-slider-single-nav normal-slider" style="padding-top: 14px;">
       {% if image %}
-        {% for img in image %}
-          <!-- Thumbnail Images -->
-          <img class="img-fluid" 
-               src="{{ img.images.url }}" 
-               style="transition: transform 0.4s ease; width: 100px; height: auto;" 
-               onmouseover="this.style.transform='scale(1.2)'" 
-               onmouseout="this.style.transform='scale(1)'">
-        {% endfor %}
-      {% endif %}
+    {% for img in image %}
+        <img src="{{ img.images.url }}" width="147" height="147"
+             style="transition: transform 0.4s ease; width: 147px; height: 200px;"
+             onmouseover="this.style.transform='scale(1.4)'"
+             onmouseout="this.style.transform='scale(1)'">
+    {% endfor %}
+{% endif %}
+
+
+
+
+      </div>
     </div>
   </div>
-</div>
 
 
 
