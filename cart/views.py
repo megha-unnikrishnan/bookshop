@@ -235,7 +235,7 @@ def update_cart_quantity(request):
         withoutoffertotal = int(sum(item.product.product_price * item.quantity for item in cartitem))
         print(withoutoffertotal)
 
-        offer =int(withoutoffertotal - total)
+        offer =float(withoutoffertotal - total)
         print('offer', offer)
 
         category_offer_amount=0
