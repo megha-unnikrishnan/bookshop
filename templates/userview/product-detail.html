@@ -21,19 +21,23 @@
         {% if product %}
 <div class="row">
 
-<div class="col-md-12 col-sm-12 col-md-12 col-lg-6 text-center">
+<div class="col-md-12 col-sm-12 col-lg-6 text-center">
   <div class="xzoom" style="min-width:18rem;">
-    <img src="{{product.product.product_image.url}}" 
+    <!-- Main Product Image -->
+    <img class="img-fluid" 
+         src="{{product.product.product_image.url}}" 
          id="zoom" 
          data-zoom-image="{{product.product.product_image.url}}" 
-         style="transition: transform 0.4s ease; max-width: 100%; max-height: 400px;" 
+         style="transition: transform 0.4s ease; max-height: 400px;" 
          onmouseover="this.style.transform='scale(1.2)'" 
          onmouseout="this.style.transform='scale(1)'">
     
-    <div class="product-slider-single-nav normal-slider" style="padding-top: 14px;">
+    <div class="product-slider-single-nav normal-slider mt-3">
       {% if image %}
         {% for img in image %}
-          <img src="{{ img.images.url }}" 
+          <!-- Thumbnail Images -->
+          <img class="img-fluid" 
+               src="{{ img.images.url }}" 
                style="transition: transform 0.4s ease; width: 100px; height: auto;" 
                onmouseover="this.style.transform='scale(1.2)'" 
                onmouseout="this.style.transform='scale(1)'">
