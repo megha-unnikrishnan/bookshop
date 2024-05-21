@@ -396,7 +396,7 @@ def checkout_view(request, id):
             mrp += int(item.product.product_price) * item.quantity
             offerprice += int(item.product.price_sub_total()) * item.quantity
 
-            discount = int(mrp - offerprice)
+            discount = float(mrp - offerprice)
 
 
         category_offer_amount = 0
