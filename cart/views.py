@@ -203,11 +203,11 @@ def update_cart_quantity(request):
                         'error': f'User cannot add more than {cart_item.product.max_quantity_per_person} quantity to the cart!!',
                         'hide_quantity': True})
             cart_item.save()
-
-        if new_quantity > cart_item.product.stock:
-            return JsonResponse({'error': 'Exceeded available stock', 'hide_quantity': True})
         if cart_item.product.stock<=0:
             return JsonResponse({'error': 'Sorry!!This item is currently out of stock. Please check back later.', 'hide_quantity': True})
+        if new_quantity > cart_item.product.stock:
+            return JsonResponse({'error': 'Exceeded available stock', 'hide_quantity': True})
+        
         if new_quantity != 0:
             cart_item.quantity = new_quantity
             cart_item.save()
