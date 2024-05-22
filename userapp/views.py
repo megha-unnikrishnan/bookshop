@@ -396,8 +396,7 @@ def sort_products(request):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         image_obj = paginator.page(paginator.num_pages)
-    return render(request, 'userview/sortproducts.html', {'products':image_obj;'category':category})
-
+    return render(request, 'userview/sortproducts.html', {'products':image_obj,'category':category})
 @cache_control(no_cache=True, no_store=True)
 def product_list(request):
     image = Bookvariant.objects.filter(Q(is_active=True) and Q(product__is_active=True))
