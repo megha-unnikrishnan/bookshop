@@ -7,10 +7,10 @@
         <div class="col-md-12">
             {% if category %}
             <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'userindex' %}">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ category.category_name }}</li>
-              </ol>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'userindex' %}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ category.category_name }}</li>
+                </ol>
             </nav>
             {% else %}
             <h1>Product not found</h1>
@@ -20,46 +20,50 @@
     <div class="row">
         {% if products %}
         {% for product in products %}
-       <div class="col-md-4">
-    <div class="card mb-4 shadow-sm">
-        <a href="{% url 'productdetail' product.id %}">
-            <img class="card-img-top" src="{{ product.product.product_image.url }}" alt="Product Image" style="height: 250px; object-fit: cover;">
-        </a>
-        <div class="card-body">
-            <h5 class="card-title">{{ product.product.product_name }}</h5>
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <!-- Display star ratings -->
-                    <span title="{{ product.rating }}">
-                        <i style="color:yellow" class="fa fa-star{% if product.rating < 0.5 %}-o{% elif product.rating >= 0.5 and product.rating < 1 %}-half-o{% endif %}" aria-hidden="true"></i>
-                        <i style="color:yellow" class="fa fa-star{% if product.rating < 1.5 %}-o{% elif product.rating >= 1.5 and product.rating < 2 %}-half-o{% endif %}" aria-hidden="true"></i>
-                        <i style="color:yellow" class="fa fa-star{% if product.rating < 2.5 %}-o{% elif product.rating >= 2.5 and product.rating < 3 %}-half-o{% endif %}" aria-hidden="true"></i>
-                        <i style="color:yellow" class="fa fa-star{% if product.rating < 3.5 %}-o{% elif product.rating >= 3.5 and product.rating < 4 %}-half-o{% endif %}" aria-hidden="true"></i>
-                        <i style="color:yellow" class="fa fa-star{% if product.rating < 4.5 %}-o{% elif product.rating >= 4.5 and product.rating < 5 %}-half-o{% endif %}" aria-hidden="true"></i>
-                    </span>
-                    <span><strong>({{ product.rating }}/5)</strong></span>
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="product-item bg-light border rounded p-3 h-100">
+                <div class="product-title text-center">
+                    <a href="{% url 'productdetail' product.id %}">{{ product.product.product_name }}</a>
+                    <div class="d-flex justify-content-center align-items-center mb-2">
+                        <span title="{{ product.rating }}/5">
+                            <i style="color:#FF6F61" class="fa fa-star{% if product.rating < 0.5 %}-o{% elif product.rating >= 0.5 and product.rating < 1 %}-half-o{% endif %}" aria-hidden="true"></i>
+                            <i style="color:#FF6F61" class="fa fa-star{% if product.rating < 1.5 %}-o{% elif product.rating >= 1.5 and product.rating < 2 %}-half-o{% endif %}" aria-hidden="true"></i>
+                            <i style="color:#FF6F61" class="fa fa-star{% if product.rating < 2.5 %}-o{% elif product.rating >= 2.5 and product.rating < 3 %}-half-o{% endif %}" aria-hidden="true"></i>
+                            <i style="color:#FF6F61" class="fa fa-star{% if product.rating < 3.5 %}-o{% elif product.rating >= 3.5 and product.rating < 4 %}-half-o{% endif %}" aria-hidden="true"></i>
+                            <i style="color:#FF6F61" class="fa fa-star{% if product.rating < 4.5 %}-o{% elif product.rating >= 4.5 and product.rating < 5 %}-half-o{% endif %}" aria-hidden="true"></i>
+                        </span>
+                        <small class="text-muted ms-2">{{ product.rating }}/5</small>
+                    </div>
+                </div>
+                <div class="product-image text-center mb-3">
+                    <a href="{% url 'productdetail' product.id %}">
+                        <img src="{{ product.product.product_image.url }}" alt="Product Image" style="width: 100%; height: 200px; object-fit: contain;">
+                    </a>
+                </div>
+                <div class="product-action d-flex justify-content-center mb-3">
+                    <a href="{% url 'productdetail' product.id %}" class="btn btn-sm btn-outline-secondary mx-1"><i class="fa fa-cart-plus"></i></a>
+                    <a href="#" class="btn btn-sm btn-outline-secondary mx-1"><i class="fa fa-heart"></i></a>
+                    <a href="#" class="btn btn-sm btn-outline-secondary mx-1"><i class="fa fa-search"></i></a>
+                </div>
+                <div class="product-price text-center">
+                    <h4 class="text-dark"><i class="fas fa-rupee-sign text-dark"></i>{{ product.discounted_price|floatformat:"0" }}</h4>
+                    <h6 class="text-muted"><small><del>{{ product.product_price|floatformat:"0" }}</del></small></h6>
                 </div>
             </div>
-            <p class="card-text"><strong>₹{{ product.discounted_price|floatformat:"0" }}</strong> <small class="text-muted"><del>₹{{ product.product_price|floatformat:"0" }}</del></small></p>
-            <div class="d-flex justify-content-between align-items-center">
-                <a href="{% url 'productdetail' product.id %}" class="btn btn-primary btn-sm">View</a>
-            </div>
         </div>
-    </div>
-</div>
-
         {% endfor %}
         {% else %}
-        <!-- Display "Products Not Found" message if no products are found -->
         <div class="col-md-12">
             <div class="card mb-4 shadow-sm text-center">
                 <div class="card-body">
-                    <h2 class="mt-5" style="color:#FF6F61">No products found for {{ category.category_name }}</h2><p class="lead">Check back later for updates or explore other categories.</p>
+                    <h2 class="mt-5" style="color:#FF6F61">No products found for {{ category.category_name }}</h2>
+                    <p class="lead">Check back later for updates or explore other categories.</p>
                 </div>
             </div>
         </div>
         {% endif %}
     </div>
 </div>
+
 
 {% endblock %}
