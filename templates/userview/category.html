@@ -20,22 +20,22 @@
     <div class="row">
         {% if products %}
         {% for product in products %}
-        <div class="col-md-6">
+        <div class="col-md-4">
     <div class="card mb-4 shadow-sm" style="width: 100%;">
-        <div class="card-img-top">
+        <div class="card-img-top" style="text-align: center; padding: 10px;">
             <a href="{% url 'productdetail' product.id %}">
-                <img src="{{product.product.product_image.url}}" width="100%" height="auto" alt="Product Image" style="max-height: 300px; object-fit: cover;">
+                <img src="{{ product.product.product_image.url }}" alt="Product Image" style="width: auto; height: 200px; max-width: 100%; object-fit: contain;">
             </a>
         </div>
         <div class="card-body">
             <h4 class="card-title">{{ product.product.product_name }}</h4>
             <span title="{{ product.rating }}">
                 <!-- By default the star is full else it is empty otherwise it is half -->
-                <i style="color:yellow" class="fa fa-star{% if product.rating < 0.5%}-o{% elif product.rating >= 0.5 and product.rating < 1 %}-half-o{% endif %}" aria-hidden="true"></i>
-                <i style="color:yellow" class="fa fa-star{% if product.rating < 1.5%}-o{% elif product.rating >= 1.5 and product.rating < 2 %}-half-o{% endif %}" aria-hidden="true"></i>
-                <i style="color:yellow" class="fa fa-star{% if product.rating < 2.5%}-o{% elif product.rating >= 2.5 and product.rating < 3 %}-half-o{% endif %}" aria-hidden="true"></i>
-                <i style="color:yellow" class="fa fa-star{% if product.rating < 3.5%}-o{% elif product.rating >= 3.5 and product.rating < 4 %}-half-o{% endif %}" aria-hidden="true"></i>
-                <i style="color:yellow" class="fa fa-star{% if product.rating < 4.5%}-o{% elif product.rating >= 4.5 and product.rating < 5 %}-half-o{% endif %}" aria-hidden="true"></i>
+                <i style="color:yellow" class="fa fa-star{% if product.rating < 0.5 %}-o{% elif product.rating >= 0.5 and product.rating < 1 %}-half-o{% endif %}" aria-hidden="true"></i>
+                <i style="color:yellow" class="fa fa-star{% if product.rating < 1.5 %}-o{% elif product.rating >= 1.5 and product.rating < 2 %}-half-o{% endif %}" aria-hidden="true"></i>
+                <i style="color:yellow" class="fa fa-star{% if product.rating < 2.5 %}-o{% elif product.rating >= 2.5 and product.rating < 3 %}-half-o{% endif %}" aria-hidden="true"></i>
+                <i style="color:yellow" class="fa fa-star{% if product.rating < 3.5 %}-o{% elif product.rating >= 3.5 and product.rating < 4 %}-half-o{% endif %}" aria-hidden="true"></i>
+                <i style="color:yellow" class="fa fa-star{% if product.rating < 4.5 %}-o{% elif product.rating >= 4.5 and product.rating < 5 %}-half-o{% endif %}" aria-hidden="true"></i>
             </span>
             <span><strong>( {{ product.rating }}/5 )</strong></span>
             <div class="product-price">
@@ -45,6 +45,7 @@
         </div>
     </div>
 </div>
+
 
         {% endfor %}
         {% else %}
