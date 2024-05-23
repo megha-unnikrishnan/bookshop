@@ -58,7 +58,10 @@
         if (offerName.trim() === "") {
             document.getElementById("offerNameError").innerHTML = "Offer Name is required";
             error = true;
-        }
+        }else if (!/^[A-Za-z\s]+$/.test(offerName)) {
+        document.getElementById("offerNameError").innerText = "Offer Name should contain only alphabets";
+        error = true;
+    }
         if (percentage === "") {
             document.getElementById("percentageError").innerHTML = "Percentage Discount is required";
             error = true;
