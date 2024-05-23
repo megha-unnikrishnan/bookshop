@@ -84,9 +84,16 @@ def order_summary(request,id):
             return redirect('userlogin')
         user = request.user
         order_obj=Order.objects.get(id=id)
+        
         orders = OrderProduct.objects.filter(Q(user=user) and Q(order_id=order_obj))
+
+
+        order_products = OrderProduct.objects.filter(order_id=order_obj)
+
         context={
-            'orders':orders
+            'orders':orders,
+            'order_products':order_products,
+            'order_obj':order_obj
         }
         return render(request, 'userview/ordersummary.html', context)
     except Exception as e:
