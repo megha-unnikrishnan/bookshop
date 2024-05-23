@@ -488,7 +488,7 @@ def category_detail(request, id):
         print(e)
     return render(request, 'userview/category-detail.html', context)
 
-
+@login_required(login_url='userindex')
 def userprofile(request):
     try:
         if 'email' in request.session:
@@ -501,7 +501,7 @@ def userprofile(request):
 
 
 
-@login_required
+@login_required(login_url='userindex')
 def addaddress(request, id):
 
         try:
@@ -544,7 +544,7 @@ def addaddress(request, id):
             messages.error(request, "User does not exist.")
             return redirect('addressbook')  # Redirect to a suitable page or handle as per your application's logic
 
-
+@login_required(login_url='userindex')
 def address_book(request):
     context={}
     try:
@@ -561,7 +561,7 @@ def address_book(request):
     return render(request, 'userview/addressbook.html', context)
 
 
-
+@login_required(login_url='userindex')
 def deleteaddress(request,id):
 
     try:
