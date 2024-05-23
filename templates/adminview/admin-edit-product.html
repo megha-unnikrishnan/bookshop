@@ -68,7 +68,10 @@
         if (productName === "") {
             document.getElementById("productNameError").innerHTML = "Product Name is required";
             error = true;
-        }
+        }else if (!/^[A-Za-z\s]+$/.test(productName)) {
+        document.getElementById("productNameError").innerText = "Product Name should contain only alphabets ";
+        error = true;
+    }
         if (productImage !== "") {
             // Validate file type for product image if an image is provided
             var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
