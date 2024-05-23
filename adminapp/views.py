@@ -1281,10 +1281,7 @@ def add_coupon(request):
                     messages.error(request, "Minimum amount must be a number less than or equal to 150!")
                     return redirect("addcoupon")
 
-                # Validate off_percent
-                if not off_percent.isdigit() or int(off_percent) <= 0 or int(off_percent) < 75 or int(off_percent) > 100:
-                    messages.error(request, "Off percent must be a positive number between 75 and 100!")
-                    return redirect("addcoupon")
+                
 
                 # Validate max_discount
                 if not max_discount.isdigit() or int(max_discount) > 2400:
