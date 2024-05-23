@@ -92,12 +92,12 @@
             document.getElementById("minAmountError").textContent = "Minimum amount must be a number less than or equal to 150";
             error = true;
         }
-        if (isNaN(offPercent) || offPercent < 75 || offPercent > 100) {
-            document.getElementById("offPercentError").textContent = "Off percent must be a positive number between 75 and 100";
+        if (isNaN(offPercent) || offPercent < 5 || offPercent > 70) {
+            document.getElementById("offPercentError").textContent = "Off percent must be a positive number between 0 and 70";
             error = true;
         }
-        if (isNaN(maxDiscount) || maxDiscount > 2400) {
-            document.getElementById("maxDiscountError").textContent = "Max discount must be a number less than or equal to 2400";
+        if (isNaN(maxDiscount) || maxDiscount > 2500) {
+            document.getElementById("maxDiscountError").textContent = "Max discount must be a number less than or equal to 2500";
             error = true;
         }
 
