@@ -1,47 +1,105 @@
-
 {% extends 'userview/userprofile.html' %}
 {% load static %}
 
 {% block inner_content %}
 
 <div class="container mt-5">
-        <h1>User Details</h1>
-        <div class="card">
-            <div class="card-body">
-  <div class="messages" style="color:red;">
-         {% for message in messages %}
-                                {{ message }}
-                            {% endfor %}
-     </div>
-                <form method="post">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="first_name">First Name:</label>
-                        <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}" >
-                    </div>
-                    <div class="form-group">
-                        <label for="last_name">Last Name:</label>
-                        <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}" >
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" >
-                    </div>
-                    <div class="form-group">
-                        <label for="mobile">Mobile:</label>
-                        <input type="tel" class="form-control" id="mobile" name="mobile" value="{{ user.phone }}">
-                    </div>
-                     <div class="form-group">
-                        <label for="mobile">Referal code:</label>
-                        <input type="tel" class="form-control" id="referal" name="mobile" value="{{ user.referral_code }}" readonly>
-                    </div>
-                    <div>
-                         <button type="submit" class="btn btn-primary">Update</button>
-                    </div>
-                </form>
+    <h1>User Details</h1>
+    <div class="card">
+        <div class="card-body">
+            <div class="messages" style="color:red;">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
             </div>
+            <form method="post" onsubmit="return validateForm()">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="first_name">First Name:</label>
+                    <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}">
+                    <span id="firstNameError" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}">
+                    <span id="lastNameError" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}">
+                    <span id="emailError" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="mobile">Mobile:</label>
+                    <input type="tel" class="form-control" id="mobile" name="mobile" value="{{ user.phone }}">
+                    <span id="mobileError" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="referal">Referral code:</label>
+                    <input type="tel" class="form-control" id="referal" name="referral" value="{{ user.referral_code }}" readonly>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 
+<script>
+function validateForm() {
+    // Retrieve form inputs
+    var firstName = document.getElementById("first_name").value.trim();
+    var lastName = document.getElementById("last_name").value.trim();
+    var email = document.getElementById("email").value.trim();
+    var mobile = document.getElementById("mobile").value.trim();
 
-{% endblock%}
+    // Clear previous error messages
+    document.getElementById("firstNameError").innerText = "";
+    document.getElementById("lastNameError").innerText = "";
+    document.getElementById("emailError").innerText = "";
+    document.getElementById("mobileError").innerText = "";
+
+    var isValid = true;
+
+    // Validate First Name
+    if (firstName === "") {
+        document.getElementById("firstNameError").innerText = "First name is required";
+        isValid = false;
+    } else if (!/^[A-Za-z\s]+$/.test(firstName)) {
+        document.getElementById("firstNameError").innerText = "First name should contain only alphabets and spaces";
+        isValid = false;
+    }
+
+    // Validate Last Name
+    if (lastName === "") {
+        document.getElementById("lastNameError").innerText = "Last name is required";
+        isValid = false;
+    } else if (!/^[A-Za-z\s]+$/.test(lastName)) {
+        document.getElementById("lastNameError").innerText = "Last name should contain only alphabets and spaces";
+        isValid = false;
+    }
+
+    // Validate Email
+    if (email === "") {
+        document.getElementById("emailError").innerText = "Email is required";
+        isValid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        document.getElementById("emailError").innerText = "Please enter a valid email address";
+        isValid = false;
+    }
+
+    // Validate Mobile
+    if (mobile === "") {
+        document.getElementById("mobileError").innerText = "Mobile is required";
+        isValid = false;
+    } else if (!/^[6-9]\d{9}$/.test(mobile)) {
+        document.getElementById("mobileError").innerText = "Mobile should be a 10-digit number starting with 6, 7, 8, or 9";
+        isValid = false;
+    }
+
+    return isValid;
+}
+</script>
+
+{% endblock %}
