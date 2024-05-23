@@ -114,14 +114,14 @@
         if (maxDiscount === "" ) {
             document.getElementById("maxDiscountError").textContent = "Maximum stock is required";
             error = true;
-        }if (minAmount === "" ) {
-            document.getElementById("minAmountError").textContent = "Minimum amount is required";
-            error = true;
-        }if (offPercent === "" ) {
-            document.getElementById("offPercentError").textContent = "Offpercent is required";
+        }if (isNaN(offPercent) || offPercent < 5 || offPercent > 70) {
+            document.getElementById("offPercentError").textContent = "Off percent must be a positive number between 0 and 70";
             error = true;
         }
-
+        if (isNaN(maxDiscount) || maxDiscount > 2500) {
+            document.getElementById("maxDiscountError").textContent = "Max discount must be a number less than or equal to 2500";
+            error = true;
+        }
 
         return !error;
     }
