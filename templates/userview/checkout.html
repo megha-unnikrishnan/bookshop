@@ -155,6 +155,9 @@ function validateForm() {
     if (name.trim() === "") {
         document.getElementById("nameError").innerText = "Name is required";
         isValid = false;
+    }else if (!/^[A-Za-z\s]+$/.test(name)) {
+        document.getElementById("nameError").innerText = "Name should contain only alphabets and spaces";
+        isValid = false;
     }
 
     // Validate Mobile
@@ -163,6 +166,9 @@ function validateForm() {
         isValid = false;
     } else if (isNaN(mobile) || mobile.length !== 10) {
         document.getElementById("numberError").innerText = "Mobile should be a 10-digit number";
+        isValid = false;
+    }else if (!/^[6-9]\d{9}$/.test(mobile)) {
+        document.getElementById("numberError").innerText = "Mobile should start with 6, 7, 8, or 9";
         isValid = false;
     }
 
