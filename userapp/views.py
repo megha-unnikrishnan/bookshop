@@ -586,6 +586,7 @@ def updateaddress(request,id,o_id):
                 address.name = request.POST['name']
                 address.address = request.POST['address']
                 address.town = request.POST['town']
+                address.alt_mobile=request.POST['mobile']
                 address.zipcode = request.POST['zipcode']
                 address.nearby_location = request.POST['location']
                 address.district = request.POST['district']
