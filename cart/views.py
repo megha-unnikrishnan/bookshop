@@ -24,7 +24,7 @@ from decimal import Decimal
 import pdb
 import razorpay
 from django.conf import settings
-
+from django.contrib.auth.decorators import login_required
 
 
 def add_to_cart(request, id):
@@ -340,7 +340,7 @@ def checkout(request):
     except Exception as e:
         print(e)
     return render(request, 'userview/checkout.html', context)
-
+@login_required(login_url='userindex')
 def checkout_view(request, id):
     context = {}
     try:
