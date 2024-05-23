@@ -20,15 +20,33 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
-                            <a class="nav-link active"  href="{% url 'userprofile' %}" role="tab"><i class="fa fa-tachometer-alt"></i>Dashboard</a>
-                            <a class="nav-link"  href="{% url 'orderslist' %}" ><i class="fa fa-shopping-bag"></i>Orders</a>
-                            <a class="nav-link"  href="{% url 'add_wallet' %}" ><i class="fa fa-shopping-bag"></i>Wallet</a>
+    <!-- <a href="{% url 'userindex' %}" class="nav-item nav-link {% if request.path == '/' %}active{% endif %}">Home</a> -->
+    
+    <a href="{% url 'userprofile' %}" class="nav-item nav-link {% if request.path == '/userprofile/' %}active{% endif %}">
+        <i class="fa fa-dashboard"></i> Dashboard
+    </a>
+    
+    <a href="{% url 'orderslist' %}" class="nav-item nav-link {% if request.path == '/order/orderslist/' %}active{% endif %}">
+        <i class="fa fa-shopping-bag"></i> Orders
+    </a>
+    
+    <a href="{% url 'add_wallet' %}" class="nav-item nav-link {% if request.path == '/add-wallet/' %}active{% endif %}">
+        <i class="fa fa-wallet"></i> Wallet
+    </a>
 
-                            <a class="nav-link"  href="{% url 'addressbook' %}" ><i class="fa fa-map-marker-alt"></i>address</a>
-                            <a class="nav-link"  href="{% url 'changeuserpassword' %}" ><i class="fa fa-map-marker-alt"></i>change password</a>
-                            <a class="nav-link"  href="{% url 'profiledetails' %}" role="tab"><i class="fa fa-user"></i>Account Details</a>
+    <a href="{% url 'addressbook' %}" class="nav-item nav-link {% if request.path == '/address-book/' %}active{% endif %}">
+        <i class="fa fa-map-marker-alt"></i> Address
+    </a>
+    
+    <a href="{% url 'changeuserpassword' %}" class="nav-item nav-link {% if request.path == '/change-password/' %}active{% endif %}">
+        <i class="fa fa-key"></i> Change Password
+    </a>
+    
+    <a href="{% url 'profiledetails' %}" class="nav-item nav-link {% if request.path == '/profiledetails/' %}active{% endif %}">
+        <i class="fa fa-user"></i> Account Details
+    </a>
+</div>
 
-                        </div>
                     </div>
 
                     <div class="col-md-9">
