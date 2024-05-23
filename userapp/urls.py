@@ -26,11 +26,11 @@ urlpatterns=[
 
     path('update-book/<int:id>/<int:o_id>/',views.updateaddress,name='updateaddress'),
 
-    path('change-password',views.changeuserpassword,name='changeuserpassword'),
+    path('change-password/',views.changeuserpassword,name='changeuserpassword'),
     path('profiledetails/',views.profiledetails,name='profiledetails'),
     path('updateprofile/',views.updateprofile,name='updateprofile'),
     path('sort/', views.sort_products, name='sort_products'),
-    path('add-wallet',views.add_wallet,name='add_wallet'),
+    path('add-wallet/',views.add_wallet,name='add_wallet'),
     path('wallet-book/',views.wallet_book,name='wallet_book'),
 
     path('user-review/',views.write_review,name='write_review'),
