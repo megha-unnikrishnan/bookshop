@@ -382,8 +382,8 @@ def checkout_view(request, id):
         offerprice = 0
 
         for item in cart_items:
-            mrp += float(item.product.product_price) * item.quantity
-            offerprice += float(item.product.price_sub_total()) * item.quantity
+            mrp += int(item.product.product_price) * item.quantity
+            offerprice += int(item.product.price_sub_total()) * item.quantity
 
             discount = float(mrp - offerprice)
 
@@ -419,7 +419,7 @@ def checkout_view(request, id):
         # grand total
 
         grand_total = mrp - discount - discount_amount - category_offer_amount + tax + shipping_cost
-        grand_total=float(grand_total)
+        grand_total =float(grand_total)
         # grand_total=grand_total * 100
         print(grand_total)
         try:
@@ -521,7 +521,7 @@ def checkout_view(request, id):
             order.subtotal = mrp
             order.order_total = grand_total  # total amount including tax
             order.discount_amount = discount
-            order.category_amount=category_offer_amount
+            order.category_amount =category_offer_amount
             order.tax = tax
             order.is_ordered = True
             order.coupon = coupon_obj
@@ -722,7 +722,7 @@ def checkout_view(request, id):
             'grand_total': grand_total,
             'razorpay_order_id': order_id,
             'callback': callback,
-            'category_offer_amount':category_offer_amount
+            'category_offer_amount' :category_offer_amount
 
         }
         return render(request, 'userview/placeorder.html', context)
@@ -732,7 +732,7 @@ def checkout_view(request, id):
         print(e)  # Log the error for debugging
         messages.error(request, 'An error occurred during checkout. Please try again later.')
 
-    return render(request, 'userview/placeorder.html',context)
+    return render(request, 'userview/placeorder.html' ,context)
 
 
 
