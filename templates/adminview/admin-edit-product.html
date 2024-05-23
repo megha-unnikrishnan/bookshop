@@ -51,10 +51,10 @@
     <!-- Bootstrap JS -->
 <script>
     function validateProductForm() {
-        var productName = document.getElementById("productName").value;
+        var productName = document.getElementById("productName").value.trim();
         var productImage = document.getElementById("productImage").value;
-        var description = document.getElementById("productDesc").value;
-        var review = document.getElementById("productReview").value;
+        var description = document.getElementById("productDesc").value.trim();
+        var review = document.getElementById("productReview").value.trim();
 
         var error = false;
 
