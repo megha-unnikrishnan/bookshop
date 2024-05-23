@@ -203,11 +203,11 @@ def update_cart_quantity(request):
                         'error': f'User cannot add more than {cart_item.product.max_quantity_per_person} quantity to the cart!!',
                         'hide_quantity': True})
             cart_item.save()
-        
+
         if new_quantity > cart_item.product.stock:
             return JsonResponse({'error': 'Exceeded available stock', 'hide_quantity': True})
-        
-        
+        if cart_item.product.stock<=0:
+            return JsonResponse({'error': 'Sorry!!This item is currently out of stock. Please check back later.', 'hide_quantity': True})
         if new_quantity != 0:
             cart_item.quantity = new_quantity
             cart_item.save()
@@ -233,24 +233,13 @@ def update_cart_quantity(request):
 
         total = sum(Decimal(item.product.price_sub_total()) * item.quantity for item in cartitem)
 
-        withoutoffertotal = int(sum(item.product.product_price * item.quantity for item in cartitem))
+        withoutoffertotal = sum(item.product.product_price * item.quantity for item in cartitem)
         print(withoutoffertotal)
 
-        offer =float(withoutoffertotal - total)
+        offer = int(withoutoffertotal - total)
         print('offer', offer)
 
-        category_offer_amount=0
-        # catgeory offer
 
-
-
-        # cart_obj = Cart.objects.get(id=cart_item.cart.id)
-        # cat_ofr_obj = CartItem.objects.filter(cart=cart_obj)
-        # for items in cat_ofr_obj:
-        #     if not items.product.category.offer_cat.is_expired():
-        #         category_offer_amount += items.sub_total_with_category_offer()
-        #     else:
-        #         category_offer_amount=0
 
         cart_obj = Cart.objects.get(id=cart_item.cart.id)
         cat_ofr_obj = CartItem.objects.filter(cart=cart_obj)
@@ -326,13 +315,12 @@ def update_cart_quantity(request):
         cart_obj.tax = tax
         cart_obj.save()
 
-        grand_total = int(withoutoffertotal - offer - discount_amount-category_offer_amount + tax + shipping_cost)
+        grand_total = int(withoutoffertotal - offer - discount_amount -category_offer_amount + tax + shipping_cost)
 
         return JsonResponse(
             {'subtotal': sub_total, 'total': withoutoffertotal, 'offer': offer, 'shipping': shipping_cost,
              'grand_total': grand_total, 'coupon_offer': discount_amount, 'tax': tax, 'message': message,
-             'coupon_applied': coupon_applied,'category_offer_amount':category_offer_amount})
-
+             'coupon_applied': coupon_applied ,'category_offer_amount' :category_offer_amount})
 
 def checkout(request):
     try:
