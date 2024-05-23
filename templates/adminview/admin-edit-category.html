@@ -121,7 +121,10 @@
         if (!categoryName) {
             categoryNameError.textContent = 'Category name is required.';
             isValid = false;
-        }
+        }else if (!/^[A-Za-z\s]+$/.test(categoryName)) {
+        categoryNameError.textContent = 'Category name should contain only alphabets ';
+        isValid = false;
+    }
 
         // Validate Image (optional, but checking for file type if provided)
         if (categoryImage) {
