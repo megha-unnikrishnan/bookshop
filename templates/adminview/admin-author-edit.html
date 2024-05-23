@@ -82,8 +82,8 @@
             authorNameError.textContent = 'Author name is required.';
             isValid = false;
         }else if (!/^[A-Za-z\s]+$/.test(authorName)) {
-        document.getElementById("authorNameError").innerText = "Author Name should contain only alphabets";
-        error = true;
+        authorNameError.textContent = 'Author name should contain only alphabets ';
+        isValid = false;
     }
 
         // Validate Image (optional, but checking for file type if provided)
