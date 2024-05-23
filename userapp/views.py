@@ -683,6 +683,7 @@ def profiledetails(request):
     return redirect('userindex')
 
 
+
 def updateprofile(request):
     if request.method == 'POST':
         # Get the updated values from the request
