@@ -154,6 +154,7 @@ def delete_cart_item(request, id):
 
 
 @csrf_exempt
+@login_required(login_url='userindex')
 def update_cart_quantity(request):
     if request.method == 'POST' and request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
         item_id_str = request.POST.get('item_id')
