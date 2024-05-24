@@ -360,7 +360,7 @@ def search_view(request):
 
 def sort_products(request):
     sort_order = request.GET.get('sort')
-    category = Category.objects.all()
+    category = Category.objects.all(is_active=True)
     if sort_order == 'low':
         products = Bookvariant.objects.filter(is_active=True).order_by('product_price')
     elif sort_order == 'high':
@@ -400,7 +400,7 @@ def sort_products(request):
 @cache_control(no_cache=True, no_store=True)
 def product_list(request):
     image = Bookvariant.objects.filter(Q(is_active=True) and Q(product__is_active=True))
-    category = Category.objects.all
+    category = Category.objects.all(is_active=True)
     low = Bookvariant.objects.filter(is_active=True).order_by('product__product_price')
     high = Bookvariant.objects.filter(is_active=True).order_by('-product__product_price')
     paginator = Paginator(image, 4)
