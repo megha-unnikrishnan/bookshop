@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from shop.models import Wishlist, Bookvariant
 from userapp.models import CustomUser
-
+from django.contrib.auth.decorators import login_required
 
 def add_to_wishlist(request, id):
     try:
@@ -32,7 +32,7 @@ def add_to_wishlist(request, id):
 
     return redirect('userindex')
 
-
+@login_required(login_url='userindex')
 def wishlistview(request):
     context = {}
     try:
