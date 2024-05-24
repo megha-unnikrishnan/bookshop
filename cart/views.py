@@ -92,7 +92,7 @@ def add_to_cart(request, id):
         messages.error(request, 'Add to cart failed')
         return redirect('productdetail', id=id)
 
-
+@login_required(login_url='userindex')
 def cart_items(request, id):
     context = {}
     try:
