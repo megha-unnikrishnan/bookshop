@@ -322,7 +322,7 @@ def update_cart_quantity(request):
             {'subtotal': sub_total, 'total': withoutoffertotal, 'offer': offer, 'shipping': shipping_cost,
              'grand_total': grand_total, 'coupon_offer': discount_amount, 'tax': tax, 'message': message,
              'coupon_applied': coupon_applied ,'category_offer_amount' :category_offer_amount})
-
+@login_required(login_url='userindex')
 def checkout(request):
     try:
         if not 'email' in request.session:
